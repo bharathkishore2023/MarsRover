@@ -24,7 +24,7 @@ public class MarsRover {
 
             for (String command : commandArray) {
                 if (command.equals("M")) {
-                    coordinates = move(coordinates, direction);
+                    coordinates = coordinates.update(direction);
                 } else if (command.equals("R")) {
                     direction = direction.turnRight();
                 } else if (command.equals("L")) {

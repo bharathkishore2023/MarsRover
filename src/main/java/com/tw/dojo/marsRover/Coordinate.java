@@ -23,4 +23,15 @@ public class Coordinate {
     public int hashCode() {
         return Objects.hash(x, y);
     }
+
+    public Coordinate update(Direction direction) {
+        if (direction.equals(Direction.S)) {
+            return new Coordinate(this.x, this.y - 1);
+        } else if (direction.equals(Direction.E)) {
+            return new Coordinate(this.x + 1, this.y);
+        } else if (direction.equals(Direction.W)) {
+            return new Coordinate(this.x - 1, this.y);
+        }
+        return new Coordinate(this.x, this.y + 1);
+    }
 }
