@@ -16,7 +16,7 @@ public class MarsRover {
             int positionLineIndex = i * 2 + 1;
             int commandLineIndex = positionLineIndex + 1;
 
-            int[] position = getPosition(lines[positionLineIndex]);
+            Coordinate coordinates = getCoordinates(lines[positionLineIndex]);
 
             Direction direction = getDirection(lines[positionLineIndex]);
 
@@ -24,7 +24,7 @@ public class MarsRover {
 
             for (String command : commandArray) {
                 if (command.equals("M")) {
-                    position = move(position, direction);
+                    coordinates = move(coordinates, direction);
                 } else if (command.equals("R")) {
                     direction = direction.turnRight();
                 } else if (command.equals("L")) {
@@ -32,7 +32,7 @@ public class MarsRover {
                 }
             }
 
-            result += position[0] + " " + position[1] + " " + direction + "\n";
+            result += coordinates.x + " " + coordinates.y + " " + direction + "\n";
         }
 
         return result;
@@ -58,7 +58,7 @@ public class MarsRover {
         }
     }
 
-    private int[] getPosition(String line) {
+    private Coordinate getCoordinates(String line) {
         int xWidth, yWidth;
 
         try {
@@ -70,24 +70,21 @@ public class MarsRover {
             throw new IllegalArgumentException("Could not parse position from: " + line);
         }
 
-        return new int[]{xWidth, yWidth};
+        return new Coordinate(xWidth, yWidth);
     }
 
-    private static int[] move(int[] position, Direction direction) {
-        int[] newPosition = position;
-
+    private static Coordinate move(Coordinate coordinate, Direction direction) {
         if (direction.equals(Direction.N)) {
-            newPosition[1] += +1;
+            coordinate.y += +1;
         } else if (direction.equals(Direction.S)) {
-            newPosition[1] += -1;
+            coordinate.y += -1;
         } else if (direction.equals(Direction.E)) {
-            newPosition[0] += +1;
+            coordinate.x += +1;
         } else if (direction.equals(Direction.W)) {
-            newPosition[0] += -1;
+            coordinate.x += -1;
         }
 
-        position = newPosition;
-        return position;
+        return coordinate;
     }
 
 }
