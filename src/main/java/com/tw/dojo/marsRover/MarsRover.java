@@ -6,7 +6,7 @@ import java.util.List;
 public class MarsRover {
 
     public String run(String input) {
-        String out = "";
+        String result = "";
 
         String[] lines = input.split("\n");
 
@@ -32,10 +32,10 @@ public class MarsRover {
                 }
             }
 
-            out += position[0] + " " + position[1] + " " + direction + "\n";
+            result += position[0] + " " + position[1] + " " + direction + "\n";
         }
 
-        return out;
+        return result;
     }
 
     private String turnLeft(String direction) {
