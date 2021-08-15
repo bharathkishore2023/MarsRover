@@ -18,7 +18,7 @@ public class MarsRover {
 
             int[] position = getPosition(lines[positionLineIndex]);
 
-            String direction = getDirection(lines[positionLineIndex]);
+            Direction direction = getDirection(lines[positionLineIndex]);
 
             String[] commandArray = getCommandArray(lines, commandLineIndex);
 
@@ -26,9 +26,9 @@ public class MarsRover {
                 if (command.equals("M")) {
                     position = move(position, direction);
                 } else if (command.equals("R")) {
-                    direction = turnRight(direction);
+                    direction = direction.turnRight();
                 } else if (command.equals("L")) {
-                    direction = turnLeft(direction);
+                    direction = direction.turnLeft();
                 }
             }
 
@@ -36,18 +36,6 @@ public class MarsRover {
         }
 
         return result;
-    }
-
-    private String turnLeft(String direction) {
-        List<String> all = Arrays.asList("N", "E", "S", "W");
-        direction = all.get((all.indexOf(direction) + 3) % all.size());
-        return direction;
-    }
-
-    private String turnRight(String direction) {
-        List<String> all = Arrays.asList("N", "E", "S", "W");
-        direction = all.get((all.indexOf(direction) + 1) % all.size());
-        return direction;
     }
 
     private String[] getCommandArray(String[] lines, int commandLineIndex) {
@@ -62,18 +50,12 @@ public class MarsRover {
         return commandArray;
     }
 
-    private String getDirection(String line) {
-        String direction;
-
+    private Direction getDirection(String line) {
         try {
-            direction = line.split(" ")[2];
-            if (!Arrays.asList("N", "E", "S", "W").contains(direction)) {
-                throw new IllegalArgumentException();
-            }
+            return Direction.valueOf(line.split(" ")[2]);
         } catch (RuntimeException e) {
             throw new IllegalArgumentException("Could not parse direction from: " + line);
         }
-        return direction;
     }
 
     private int[] getPosition(String line) {
@@ -91,16 +73,16 @@ public class MarsRover {
         return new int[]{xWidth, yWidth};
     }
 
-    private static int[] move(int[] position, String direction) {
+    private static int[] move(int[] position, Direction direction) {
         int[] newPosition = position;
 
-        if (direction.equals("N")) {
+        if (direction.equals(Direction.N)) {
             newPosition[1] += +1;
-        } else if (direction.equals("S")) {
+        } else if (direction.equals(Direction.S)) {
             newPosition[1] += -1;
-        } else if (direction.equals("E")) {
+        } else if (direction.equals(Direction.E)) {
             newPosition[0] += +1;
-        } else if (direction.equals("W")) {
+        } else if (direction.equals(Direction.W)) {
             newPosition[0] += -1;
         }
 
