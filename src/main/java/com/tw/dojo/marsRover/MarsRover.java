@@ -1,5 +1,6 @@
 package com.tw.dojo.marsRover;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -20,14 +21,14 @@ public class MarsRover {
 
             Direction direction = getDirection(lines[positionLineIndex]);
 
-            String[] commandArray = getCommandArray(lines, commandLineIndex);
+            List<Command> commandArray = getCommands(lines, commandLineIndex);
 
-            for (String command : commandArray) {
-                if (command.equals("M")) {
+            for (Command command : commandArray) {
+                if (command.equals(Command.M)) {
                     coordinates = coordinates.update(direction);
-                } else if (command.equals("R")) {
+                } else if (command.equals(Command.R)) {
                     direction = direction.turnRight();
-                } else if (command.equals("L")) {
+                } else if (command.equals(Command.L)) {
                     direction = direction.turnLeft();
                 }
             }
@@ -38,16 +39,18 @@ public class MarsRover {
         return result;
     }
 
-    private String[] getCommandArray(String[] lines, int commandLineIndex) {
+    private List<Command> getCommands(String[] lines, int commandLineIndex) {
         String[] commandArray = lines[commandLineIndex].split("(?!^)");
 
-        List<String> validCommands = Arrays.asList("L", "R", "M");
+        List<String> validCommandsAsString = Arrays.asList("L", "R", "M");
+        List<Command> validCommands = new ArrayList<>();
         for (String command : commandArray) {
-            if (!validCommands.contains(command)) {
+            if (!validCommandsAsString.contains(command)) {
                 throw new IllegalArgumentException("Invalid command sequence: " + lines[commandLineIndex]);
             }
+            validCommands.add(Command.valueOf(command));
         }
-        return commandArray;
+        return validCommands;
     }
 
     private Direction getDirection(String line) {
