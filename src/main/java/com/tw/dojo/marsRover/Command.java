@@ -1,5 +1,5 @@
 package com.tw.dojo.marsRover;
 
-public enum Command {
-    M, L, R;
+public interface Command {
+    Position execute(Position position);
 }

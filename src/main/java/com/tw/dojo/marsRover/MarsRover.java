@@ -1,8 +1,6 @@
 package com.tw.dojo.marsRover;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 public class MarsRover {
 
@@ -21,19 +19,16 @@ public class MarsRover {
 
             Direction direction = getDirection(lines[positionLineIndex]);
 
-            List<Command> commandArray = getCommands(lines, commandLineIndex);
+            Position originalPosition = new Position(direction, coordinates);
 
+            List<Command> commandArray = getCommands(lines, commandLineIndex);
+            Position newPosition = null;
             for (Command command : commandArray) {
-                if (command.equals(Command.M)) {
-                    coordinates = coordinates.update(direction);
-                } else if (command.equals(Command.R)) {
-                    direction = direction.turnRight();
-                } else if (command.equals(Command.L)) {
-                    direction = direction.turnLeft();
-                }
+                newPosition = command.execute(originalPosition);
+                originalPosition = newPosition;
             }
 
-            result += coordinates.x + " " + coordinates.y + " " + direction + "\n";
+            result += newPosition.xCoordinate() + " " + newPosition.yCoordinate() + " " + newPosition.getDirection() + "\n";
         }
 
         return result;
@@ -43,12 +38,18 @@ public class MarsRover {
         String[] commandArray = lines[commandLineIndex].split("(?!^)");
 
         List<String> validCommandsAsString = Arrays.asList("L", "R", "M");
+        Map<String, Command> stringICommandMap = new HashMap() {{
+            put("L", new LeftCommand());
+            put("R", new RightCommand());
+            put("M", new MoveCommand());
+        }};
+
         List<Command> validCommands = new ArrayList<>();
         for (String command : commandArray) {
             if (!validCommandsAsString.contains(command)) {
                 throw new IllegalArgumentException("Invalid command sequence: " + lines[commandLineIndex]);
             }
-            validCommands.add(Command.valueOf(command));
+            validCommands.add(stringICommandMap.get(command));
         }
         return validCommands;
     }
