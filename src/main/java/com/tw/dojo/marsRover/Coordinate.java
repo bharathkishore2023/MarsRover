@@ -3,8 +3,8 @@ package com.tw.dojo.marsRover;
 import java.util.Objects;
 
 public class Coordinate {
-    int x;
-    int y;
+    private int x;
+    private int y;
 
     public Coordinate(int x, int y) {
         this.x = x;
@@ -27,5 +27,13 @@ public class Coordinate {
     public Coordinate update(Direction direction) {
         Coordinate updatedCoordinate = direction.updatedCoordinate();
         return new Coordinate(this.x + updatedCoordinate.x, this.y + updatedCoordinate.y);
+    }
+
+    public int x() {
+        return x;
+    }
+
+    public int y() {
+        return y;
     }
 }

@@ -18,12 +18,11 @@ public class Position {
         return coordinate;
     }
 
-    public int xCoordinate(){
-        return this.coordinate.x;
+    public int xCoordinate() {
+        return this.coordinate.x();
     }
 
-    public int yCoordinate(){
-        return this.coordinate.y;
+    public int yCoordinate() {
+        return this.coordinate.y();
     }
-
 }
