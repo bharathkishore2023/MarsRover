@@ -13,20 +13,21 @@ public class MarsRoverInputParser {
         return (inputLines.length - 1) / 2;
     }
 
-    public String get(int positionLineIndex) {
+    public String inputAt(int positionLineIndex) {
         return inputLines[positionLineIndex];
     }
 
-    public Coordinate getCoordinates(String inputLine) {
+    public Coordinate getCoordinates(int coordinateIndex) {
+        String coordinates = inputAt(coordinateIndex);
         int xWidth, yWidth;
 
         try {
-            String[] split = inputLine.split(" ");
+            String[] splitCoordinates = coordinates.split(" ");
 
-            xWidth = Integer.parseInt(split[0]);
-            yWidth = Integer.parseInt(split[1]);
+            xWidth = Integer.parseInt(splitCoordinates[0]);
+            yWidth = Integer.parseInt(splitCoordinates[1]);
         } catch (RuntimeException e) {
-            throw new IllegalArgumentException("Could not parse position from: " + inputLine);
+            throw new IllegalArgumentException("Could not parse position from: " + coordinateIndex);
         }
 
         return new Coordinate(xWidth, yWidth);
@@ -41,7 +42,7 @@ public class MarsRoverInputParser {
     }
 
     public List<Command> getCommands(int commandLineIndex) {
-        String[] commandArray = get(commandLineIndex).split("(?!^)");
+        String[] commandArray = inputAt(commandLineIndex).split("(?!^)");
 
         List<String> validCommandsAsString = Arrays.asList("L", "R", "M");
         Map<String, Command> stringICommandMap = new HashMap() {{
@@ -53,10 +54,22 @@ public class MarsRoverInputParser {
         List<Command> validCommands = new ArrayList<>();
         for (String command : commandArray) {
             if (!validCommandsAsString.contains(command)) {
-                throw new IllegalArgumentException("Invalid command sequence: " + get(commandLineIndex));
+                throw new IllegalArgumentException("Invalid command sequence: " + inputAt(commandLineIndex));
             }
             validCommands.add(stringICommandMap.get(command));
         }
         return validCommands;
+    }
+
+    public int commandLineIndex(int i) {
+        return evenIndex(i) + 2;
+    }
+
+    public int coordinateLineIndex(int i) {
+        return evenIndex(i) + 1;
+    }
+
+    public int evenIndex(int i) {
+        return i * 2;
     }
 }
