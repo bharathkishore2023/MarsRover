@@ -1,12 +1,9 @@
 package com.tw.dojo.marsRover.model;
 
-import com.tw.dojo.marsRover.model.Coordinate;
-import com.tw.dojo.marsRover.model.Direction;
-
 public class Position {
 
-    private Direction direction;
-    private Coordinate coordinate;
+    private final Direction direction;
+    private final Coordinate coordinate;
 
     public Position(Direction direction, Coordinate coordinate) {
         this.direction = direction;

@@ -1,14 +1,14 @@
 package com.tw.dojo.marsRover.parser;
 
+import com.tw.dojo.marsRover.command.*;
 import com.tw.dojo.marsRover.model.Coordinate;
 import com.tw.dojo.marsRover.model.Direction;
 import com.tw.dojo.marsRover.model.Position;
-import com.tw.dojo.marsRover.command.*;
 
 import java.util.*;
 
 public class MarsRoverInputParser {
-    private String[] inputLines;
+    private final String[] inputLines;
 
     public MarsRoverInputParser(String[] inputLines) {
         this.inputLines = inputLines;
@@ -51,7 +51,7 @@ public class MarsRoverInputParser {
         String[] commandArray = inputAt(evenIndex(commandLineIndex) + 2).split("(?!^)");
 
         List<String> validCommandsAsString = Arrays.asList("L", "R", "M");
-        Map<String, Command> stringICommandMap = new HashMap() {{
+        Map<String, Command> stringICommandMap = new HashMap<>() {{
             put("L", new LeftCommand());
             put("R", new RightCommand());
             put("M", new MoveCommand());

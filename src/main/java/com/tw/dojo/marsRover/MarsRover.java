@@ -7,7 +7,7 @@ import com.tw.dojo.marsRover.parser.MarsRoverInputParser;
 public class MarsRover {
 
     public String run(String input) {
-        String result = "";
+        StringBuilder result = new StringBuilder();
 
         MarsRoverInputParser inputParser = new MarsRoverInputParser(input.split("\n"));
 
@@ -18,9 +18,9 @@ public class MarsRover {
 
             Position finalPosition = commands.execute(originalPosition);
 
-            result += finalPosition.xCoordinate() + " " + finalPosition.yCoordinate() + " " + finalPosition.getDirection() + "\n";
+            result.append(finalPosition.xCoordinate()).append(" ").append(finalPosition.yCoordinate()).append(" ").append(finalPosition.getDirection()).append("\n");
         }
 
-        return result;
+        return result.toString();
     }
 }
