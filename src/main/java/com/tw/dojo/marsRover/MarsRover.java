@@ -1,6 +1,6 @@
 package com.tw.dojo.marsRover;
 
-import java.util.*;
+import java.util.List;
 
 public class MarsRover {
 
@@ -16,7 +16,8 @@ public class MarsRover {
 
             Position originalPosition = new Position(direction, coordinates);
 
-            List<Command> commandArray = getCommands(inputParser, commandLineIndex(i));
+            List<Command> commandArray = inputParser.getCommands(commandLineIndex(i));
+
             Position newPosition = null;
             for (Command command : commandArray) {
                 newPosition = command.execute(originalPosition);
@@ -39,25 +40,5 @@ public class MarsRover {
 
     public int evenIndex(int i) {
         return i * 2;
-    }
-
-    private List<Command> getCommands(MarsRoverInputParser lines, int commandLineIndex) {
-        String[] commandArray = lines.get(commandLineIndex).split("(?!^)");
-
-        List<String> validCommandsAsString = Arrays.asList("L", "R", "M");
-        Map<String, Command> stringICommandMap = new HashMap() {{
-            put("L", new LeftCommand());
-            put("R", new RightCommand());
-            put("M", new MoveCommand());
-        }};
-
-        List<Command> validCommands = new ArrayList<>();
-        for (String command : commandArray) {
-            if (!validCommandsAsString.contains(command)) {
-                throw new IllegalArgumentException("Invalid command sequence: " + lines.get(commandLineIndex));
-            }
-            validCommands.add(stringICommandMap.get(command));
-        }
-        return validCommands;
     }
 }

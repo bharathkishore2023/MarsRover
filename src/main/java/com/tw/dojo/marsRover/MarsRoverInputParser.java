@@ -1,5 +1,7 @@
 package com.tw.dojo.marsRover;
 
+import java.util.*;
+
 public class MarsRoverInputParser {
     private String[] inputLines;
 
@@ -36,5 +38,25 @@ public class MarsRoverInputParser {
         } catch (RuntimeException e) {
             throw new IllegalArgumentException("Could not parse direction from: " + inputLine);
         }
+    }
+
+    public List<Command> getCommands(int commandLineIndex) {
+        String[] commandArray = get(commandLineIndex).split("(?!^)");
+
+        List<String> validCommandsAsString = Arrays.asList("L", "R", "M");
+        Map<String, Command> stringICommandMap = new HashMap() {{
+            put("L", new LeftCommand());
+            put("R", new RightCommand());
+            put("M", new MoveCommand());
+        }};
+
+        List<Command> validCommands = new ArrayList<>();
+        for (String command : commandArray) {
+            if (!validCommandsAsString.contains(command)) {
+                throw new IllegalArgumentException("Invalid command sequence: " + get(commandLineIndex));
+            }
+            validCommands.add(stringICommandMap.get(command));
+        }
+        return validCommands;
     }
 }
