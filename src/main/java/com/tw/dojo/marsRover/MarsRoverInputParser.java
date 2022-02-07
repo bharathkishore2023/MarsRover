@@ -13,8 +13,8 @@ public class MarsRoverInputParser {
         return (inputLines.length - 1) / 2;
     }
 
-    public String inputAt(int positionLineIndex) {
-        return inputLines[positionLineIndex];
+    private String inputAt(int index) {
+        return inputLines[index];
     }
 
     public Coordinate getCoordinates(int coordinateIndex) {
