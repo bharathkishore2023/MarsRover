@@ -33,11 +33,12 @@ public class MarsRoverInputParser {
         return new Coordinate(xWidth, yWidth);
     }
 
-    public Direction getDirection(String inputLine) {
+    public Direction getDirection(int directionIndex) {
+        String initialDirection = inputAt(directionIndex);
         try {
-            return Direction.valueOf(inputLine.split(" ")[2]);
+            return Direction.valueOf(initialDirection.split(" ")[2]);
         } catch (RuntimeException e) {
-            throw new IllegalArgumentException("Could not parse direction from: " + inputLine);
+            throw new IllegalArgumentException("Could not parse direction from: " + directionIndex);
         }
     }
 
