@@ -61,16 +61,4 @@ public class MarsRoverInputParser {
         }
         return validCommands;
     }
-
-    public int commandLineIndex(int i) {
-        return evenIndex(i) + 2;
-    }
-
-    public int coordinateLineIndex(int i) {
-        return evenIndex(i) + 1;
-    }
-
-    public int evenIndex(int i) {
-        return i * 2;
-    }
 }

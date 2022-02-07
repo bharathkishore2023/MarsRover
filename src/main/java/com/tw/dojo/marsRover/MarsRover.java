@@ -10,13 +10,13 @@ public class MarsRover {
         MarsRoverInputParser inputParser = new MarsRoverInputParser(input.split("\n"));
 
         for (int i = 0; i < inputParser.numberOfRovers(); i++) {
-            Coordinate coordinates = inputParser.getCoordinates(coordinateIndexAt(i));
+            Coordinate coordinates = inputParser.getCoordinates(evenIndex(i) + 1);
 
-            Direction direction = inputParser.getDirection(coordinateIndexAt(i));
+            Direction direction = inputParser.getDirection(evenIndex(i) + 1);
 
             Position originalPosition = new Position(direction, coordinates);
 
-            List<Command> commandArray = inputParser.getCommands(commandLineIndex(i));
+            List<Command> commandArray = inputParser.getCommands(evenIndex(i) + 2);
 
             Position newPosition = null;
             for (Command command : commandArray) {
@@ -28,14 +28,6 @@ public class MarsRover {
         }
 
         return result;
-    }
-
-    public int commandLineIndex(int i) {
-        return evenIndex(i) + 2;
-    }
-
-    public int coordinateIndexAt(int i) {
-        return evenIndex(i) + 1;
     }
 
     public int evenIndex(int i) {
