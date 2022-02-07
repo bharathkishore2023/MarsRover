@@ -1,4 +1,4 @@
-package com.tw.dojo.marsRover;
+package com.tw.dojo.marsRover.model;
 
 import java.util.Objects;
 

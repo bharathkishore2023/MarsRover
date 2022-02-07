@@ -1,4 +1,4 @@
-package com.tw.dojo.marsRover;
+package com.tw.dojo.marsRover.model;
 
 import java.util.Arrays;
 import java.util.List;
@@ -15,12 +15,12 @@ public enum Direction {
         this.updatedCoordinate = updatedCoordinate;
     }
 
-    Direction turnRight() {
+    public Direction turnRight() {
         List<Direction> all = Arrays.asList(N, E, S, W);
         return all.get((all.indexOf(this) + 1) % all.size());
     }
 
-    Direction turnLeft() {
+    public Direction turnLeft() {
         List<Direction> all = Arrays.asList(N, E, S, W);
         return all.get((all.indexOf(this) + 3) % all.size());
     }

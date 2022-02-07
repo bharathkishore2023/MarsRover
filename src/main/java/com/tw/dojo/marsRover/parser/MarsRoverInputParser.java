@@ -1,4 +1,9 @@
-package com.tw.dojo.marsRover;
+package com.tw.dojo.marsRover.parser;
+
+import com.tw.dojo.marsRover.model.Coordinate;
+import com.tw.dojo.marsRover.model.Direction;
+import com.tw.dojo.marsRover.model.Position;
+import com.tw.dojo.marsRover.command.*;
 
 import java.util.*;
 

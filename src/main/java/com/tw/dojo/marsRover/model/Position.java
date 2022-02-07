@@ -1,4 +1,7 @@
-package com.tw.dojo.marsRover;
+package com.tw.dojo.marsRover.model;
+
+import com.tw.dojo.marsRover.model.Coordinate;
+import com.tw.dojo.marsRover.model.Direction;
 
 public class Position {
 

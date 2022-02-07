@@ -1,5 +1,9 @@
 package com.tw.dojo.marsRover;
 
+import com.tw.dojo.marsRover.command.Commands;
+import com.tw.dojo.marsRover.model.Position;
+import com.tw.dojo.marsRover.parser.MarsRoverInputParser;
+
 public class MarsRover {
 
     public String run(String input) {
