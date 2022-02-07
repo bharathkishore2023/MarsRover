@@ -42,7 +42,7 @@ public class MarsRoverInputParser {
         }
     }
 
-    public List<Command> getCommands(int commandLineIndex) {
+    public Commands getCommands(int commandLineIndex) {
         String[] commandArray = inputAt(evenIndex(commandLineIndex) + 2).split("(?!^)");
 
         List<String> validCommandsAsString = Arrays.asList("L", "R", "M");
@@ -59,7 +59,7 @@ public class MarsRoverInputParser {
             }
             validCommands.add(stringICommandMap.get(command));
         }
-        return validCommands;
+        return new Commands(validCommands);
     }
 
     public Position getPosition(int positionIndex) {
