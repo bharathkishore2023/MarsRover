@@ -7,21 +7,18 @@ public class MarsRover {
     public String run(String input) {
         String result = "";
 
-        String[] lines = input.split("\n");
+        InputLines lines = new InputLines(input.split("\n"));
 
-        int numberOfRovers = (lines.length - 1) / 2;
+        int numberOfRovers = lines.numberOfRovers();
 
         for (int i = 0; i < numberOfRovers; i++) {
-            int positionLineIndex = i * 2 + 1;
-            int commandLineIndex = positionLineIndex + 1;
+            Coordinate coordinates = getCoordinates(lines.get(positionLineIndex(i)));
 
-            Coordinate coordinates = getCoordinates(lines[positionLineIndex]);
-
-            Direction direction = getDirection(lines[positionLineIndex]);
+            Direction direction = getDirection(lines.get(positionLineIndex(i)));
 
             Position originalPosition = new Position(direction, coordinates);
 
-            List<Command> commandArray = getCommands(lines, commandLineIndex);
+            List<Command> commandArray = getCommands(lines, commandLineIndex(i));
             Position newPosition = null;
             for (Command command : commandArray) {
                 newPosition = command.execute(originalPosition);
@@ -34,8 +31,20 @@ public class MarsRover {
         return result;
     }
 
-    private List<Command> getCommands(String[] lines, int commandLineIndex) {
-        String[] commandArray = lines[commandLineIndex].split("(?!^)");
+    public int commandLineIndex(int i) {
+        return evenIndex(i) + 2;
+    }
+
+    public int positionLineIndex(int i) {
+        return evenIndex(i) + 1;
+    }
+
+    public int evenIndex(int i) {
+        return i * 2;
+    }
+
+    private List<Command> getCommands(InputLines lines, int commandLineIndex) {
+        String[] commandArray = lines.get(commandLineIndex).split("(?!^)");
 
         List<String> validCommandsAsString = Arrays.asList("L", "R", "M");
         Map<String, Command> stringICommandMap = new HashMap() {{
@@ -47,7 +56,7 @@ public class MarsRover {
         List<Command> validCommands = new ArrayList<>();
         for (String command : commandArray) {
             if (!validCommandsAsString.contains(command)) {
-                throw new IllegalArgumentException("Invalid command sequence: " + lines[commandLineIndex]);
+                throw new IllegalArgumentException("Invalid command sequence: " + lines.get(commandLineIndex));
             }
             validCommands.add(stringICommandMap.get(command));
         }
