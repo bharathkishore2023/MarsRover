@@ -7,16 +7,16 @@ public class MarsRover {
     public String run(String input) {
         String result = "";
 
-        MarsRoverInputParser lines = new MarsRoverInputParser(input.split("\n"));
+        MarsRoverInputParser inputParser = new MarsRoverInputParser(input.split("\n"));
 
-        for (int i = 0; i < lines.numberOfRovers(); i++) {
-            Coordinate coordinates = Coordinate.getCoordinates(lines.get(coordinateLineIndex(i)));
+        for (int i = 0; i < inputParser.numberOfRovers(); i++) {
+            Coordinate coordinates = inputParser.getCoordinates(inputParser.get(coordinateLineIndex(i)));
 
-            Direction direction = Direction.getDirection(lines.get(coordinateLineIndex(i)));
+            Direction direction = Direction.getDirection(inputParser.get(coordinateLineIndex(i)));
 
             Position originalPosition = new Position(direction, coordinates);
 
-            List<Command> commandArray = getCommands(lines, commandLineIndex(i));
+            List<Command> commandArray = getCommands(inputParser, commandLineIndex(i));
             Position newPosition = null;
             for (Command command : commandArray) {
                 newPosition = command.execute(originalPosition);

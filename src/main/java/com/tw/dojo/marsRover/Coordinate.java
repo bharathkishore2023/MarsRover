@@ -36,19 +36,4 @@ public class Coordinate {
     public int y() {
         return y;
     }
-
-    public static Coordinate getCoordinates(String line) {
-        int xWidth, yWidth;
-
-        try {
-            String[] split = line.split(" ");
-
-            xWidth = Integer.parseInt(split[0]);
-            yWidth = Integer.parseInt(split[1]);
-        } catch (RuntimeException e) {
-            throw new IllegalArgumentException("Could not parse position from: " + line);
-        }
-
-        return new Coordinate(xWidth, yWidth);
-    }
 }
