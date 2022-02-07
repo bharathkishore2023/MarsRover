@@ -18,13 +18,13 @@ public class MarsRover {
 
             List<Command> commandArray = inputParser.getCommands(evenIndex(i) + 2);
 
-            Position newPosition = null;
+            Position position = null;
             for (Command command : commandArray) {
-                newPosition = command.execute(originalPosition);
-                originalPosition = newPosition;
+                position = command.execute(originalPosition);
+                originalPosition = position;
             }
 
-            result += newPosition.xCoordinate() + " " + newPosition.yCoordinate() + " " + newPosition.getDirection() + "\n";
+            result += position.xCoordinate() + " " + position.yCoordinate() + " " + position.getDirection() + "\n";
         }
 
         return result;
