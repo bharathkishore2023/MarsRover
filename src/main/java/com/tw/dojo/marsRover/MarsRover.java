@@ -12,7 +12,7 @@ public class MarsRover {
         for (int i = 0; i < inputParser.numberOfRovers(); i++) {
             Coordinate coordinates = inputParser.getCoordinates(inputParser.get(coordinateLineIndex(i)));
 
-            Direction direction = Direction.getDirection(inputParser.get(coordinateLineIndex(i)));
+            Direction direction = inputParser.getDirection(inputParser.get(coordinateLineIndex(i)));
 
             Position originalPosition = new Position(direction, coordinates);
 
