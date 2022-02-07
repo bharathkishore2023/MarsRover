@@ -7,14 +7,12 @@ public class MarsRover {
     public String run(String input) {
         String result = "";
 
-        InputLines lines = new InputLines(input.split("\n"));
+        MarsRoverInputParser lines = new MarsRoverInputParser(input.split("\n"));
 
-        int numberOfRovers = lines.numberOfRovers();
+        for (int i = 0; i < lines.numberOfRovers(); i++) {
+            Coordinate coordinates = Coordinate.getCoordinates(lines.get(coordinateLineIndex(i)));
 
-        for (int i = 0; i < numberOfRovers; i++) {
-            Coordinate coordinates = getCoordinates(lines.get(positionLineIndex(i)));
-
-            Direction direction = getDirection(lines.get(positionLineIndex(i)));
+            Direction direction = Direction.getDirection(lines.get(coordinateLineIndex(i)));
 
             Position originalPosition = new Position(direction, coordinates);
 
@@ -35,7 +33,7 @@ public class MarsRover {
         return evenIndex(i) + 2;
     }
 
-    public int positionLineIndex(int i) {
+    public int coordinateLineIndex(int i) {
         return evenIndex(i) + 1;
     }
 
@@ -43,7 +41,7 @@ public class MarsRover {
         return i * 2;
     }
 
-    private List<Command> getCommands(InputLines lines, int commandLineIndex) {
+    private List<Command> getCommands(MarsRoverInputParser lines, int commandLineIndex) {
         String[] commandArray = lines.get(commandLineIndex).split("(?!^)");
 
         List<String> validCommandsAsString = Arrays.asList("L", "R", "M");
@@ -61,28 +59,5 @@ public class MarsRover {
             validCommands.add(stringICommandMap.get(command));
         }
         return validCommands;
-    }
-
-    private Direction getDirection(String line) {
-        try {
-            return Direction.valueOf(line.split(" ")[2]);
-        } catch (RuntimeException e) {
-            throw new IllegalArgumentException("Could not parse direction from: " + line);
-        }
-    }
-
-    private Coordinate getCoordinates(String line) {
-        int xWidth, yWidth;
-
-        try {
-            String[] split = line.split(" ");
-
-            xWidth = Integer.parseInt(split[0]);
-            yWidth = Integer.parseInt(split[1]);
-        } catch (RuntimeException e) {
-            throw new IllegalArgumentException("Could not parse position from: " + line);
-        }
-
-        return new Coordinate(xWidth, yWidth);
     }
 }

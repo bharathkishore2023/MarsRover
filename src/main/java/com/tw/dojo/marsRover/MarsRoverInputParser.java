@@ -1,13 +1,13 @@
 package com.tw.dojo.marsRover;
 
-public class InputLines {
+public class MarsRoverInputParser {
     private String[] inputLines;
 
-    public InputLines(String[] inputLines) {
+    public MarsRoverInputParser(String[] inputLines) {
         this.inputLines = inputLines;
     }
 
-    int numberOfRovers() {
+    public int numberOfRovers() {
         return (inputLines.length - 1) / 2;
     }
 

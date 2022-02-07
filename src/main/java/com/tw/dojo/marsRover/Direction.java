@@ -28,4 +28,12 @@ public enum Direction {
     public Coordinate updatedCoordinate() {
         return updatedCoordinate;
     }
+
+    public static Direction getDirection(String line) {
+        try {
+            return Direction.valueOf(line.split(" ")[2]);
+        } catch (RuntimeException e) {
+            throw new IllegalArgumentException("Could not parse direction from: " + line);
+        }
+    }
 }
