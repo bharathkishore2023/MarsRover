@@ -51,7 +51,7 @@ public class MarsRoverInputParser {
         String[] commandArray = inputAt(evenIndex(commandLineIndex) + 2).split("(?!^)");
 
         List<String> validCommandsAsString = Arrays.asList("L", "R", "M");
-        Map<String, Command> stringICommandMap = new HashMap<>() {{
+        Map<String, Command> stringICommandMap = new HashMap<String,Command>() {{
             put("L", new LeftCommand());
             put("R", new RightCommand());
             put("M", new MoveCommand());
